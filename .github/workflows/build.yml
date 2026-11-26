@@ -59,7 +59,7 @@ jobs:
           name: coverage-report
           path: coverage/lcov.info
       
-      sonarcloud:
+  sonarcloud:
     needs: build
     runs-on: ubuntu-latest
 
