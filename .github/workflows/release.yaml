@@ -1,0 +1,29 @@
+name: Release Pipeline
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+env:
+  BUilD_ARTIFACT_NAME: build.yml
+  Artifact_Name: build-artifact
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+  
+      - name: Récupération du code source
+        uses: actions/checkout@v5
+
+      - name: Récupération de l'artefact du dernier build réussi
+        uses: dawidd6/action-download-artifact@v28
+        with:
+          workflow: ${{ env.BUILD_WORKFLOW }}
+          workflow_conclusion: success
+          branch: ${{ github.ref_name }}
+          name: ${{ env.ARTIFACT_NAME }}
+          path: dist/
